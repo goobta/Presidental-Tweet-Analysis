@@ -1,3 +1,3 @@
 FROM jupyter/datascience-notebook
 
-pip install python-twitter
+RUN pip install python-twitter
