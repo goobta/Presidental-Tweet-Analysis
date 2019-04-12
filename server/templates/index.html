@@ -1,3 +1,14 @@
 <!DOCTYPE html>
 <script src="https://d3js.org/d3.v5.min.js"></script>
-<p>website</p>
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+  <h1>Hello, Bootstrap</h1>
+{% endblock %}
