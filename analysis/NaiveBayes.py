@@ -1,4 +1,5 @@
 from multiprocessing.dummy import Pool as ThreadPool
+import pandas as pd
 
 class NaiveBayes:
     def __init__(self, THREADS = 8):
@@ -50,33 +51,38 @@ class NaiveBayes:
         self.B = len(unique_words)
 
 
-    def predict_singular(self, sentence):
-        probs = {}
-
-        for c, freq in self.freqs.items():
-            class_prob = self.p_c[c]
-
-            for word in sentence.split(" "):
-                if word in self.freqs[c]:
-                    t_c = self.freqs[c][word]
-                else:
-                    t_c = 0
-
-                class_prob *= (t_c + 1) / (self.total_counts[c] + self.B)
-
-            probs[c] = class_prob
-
-        best_class = None
-        best_prob = 0
-        for c, prob in probs.items():
-            if prob > best_prob:
-                best_prob = prob
-                best_class = c
-
-        return best_class
-
     def predict(self, x):
-        return x.apply(predict_singular)
+        def predict_singular(sentence):
+            probs = {}
+
+            for c, freq in self.freqs.items():
+                class_prob = self.p_c[c]
+
+                for word in sentence.split(" "):
+                    if word in self.freqs[c]:
+                        t_c = self.freqs[c][word]
+                    else:
+                        t_c = 0
+
+                    class_prob *= (t_c + 1) / (self.total_counts[c] + self.B)
+
+                probs[c] = class_prob
+
+            best_class = None
+            best_prob = 0
+            for c, prob in probs.items():
+                if prob > best_prob:
+                    best_prob = prob
+                    best_class = c
+
+            return best_class
+
+        pool = ThreadPool(self.threads)
+        predictions = pool.map(predict_singular, x.tolist())
+        pool.close()
+        pool.join()
+
+        return pd.Series(predictions)
 
 
     def _word_freq_for_sent(self, sent):
