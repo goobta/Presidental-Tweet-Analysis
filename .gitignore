@@ -1,3 +1,7 @@
 .ipython/
 .cache/
 *.swp
+
+**/__pycache__
+
+*.csv
