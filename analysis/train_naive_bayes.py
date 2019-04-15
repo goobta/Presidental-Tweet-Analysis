@@ -4,7 +4,7 @@ import numpy as np
 
 if __name__ == '__main__':
     print("Loading Data")
-    data = pd.read_csv('trump_with_rts_clean.csv')
+    data = pd.read_csv('trump_with_rts_normalized.csv')
 
     features = data['text']
     labels = data['is_retweet']
