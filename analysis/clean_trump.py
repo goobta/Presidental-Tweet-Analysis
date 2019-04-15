@@ -20,6 +20,12 @@ def clean_tweet_text(tweet):
     except:
         return None
 
+def normalize_retweet(tweet):
+    if tweet[0:3] == 'RT ':
+        return tweet[3:]
+    else:
+        return tweet
+
 if __name__ == '__main__':
     data_raw = pd.read_csv("TrumpTweets.csv")
     data_raw['text'] = data_raw['text'].apply(clean_tweet_text)
@@ -30,7 +36,10 @@ if __name__ == '__main__':
     data = data.sample(frac = 1)
 
     data = data.reset_index(drop=True)
-    data.to_csv('trump_with_rts_clean.csv')
+    data.to_csv('trump_with_rts.csv')
+
+    data['text'] = data['text'].apply(normalize_retweet)
+    data.to_csv('trump_with_rts_normalized.csv')
 
     no_rts = data[data['is_retweet'] == 'false']
     no_rts.to_csv("trump_clean.csv")
