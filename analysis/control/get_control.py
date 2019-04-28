@@ -17,7 +17,7 @@ def download_tweets(bounds):
 
     print("Start from " + from_date + ' to ' + to_date)
 
-    criteria = got.manager.TweetCriteria().setQuerySearch('a OR the').setSince(from_date).setUntil(to_date).setTopTweets(True).setMaxTweets(1)
+    criteria = got.manager.TweetCriteria().setQuerySearch('a OR the').setSince(from_date).setUntil(to_date).setTopTweets(True).setMaxTweets(1000)
     
     tweets = got.manager.TweetManager.getTweets(criteria)
     df = pd.DataFrame([t.__dict__ for t in tweets])
