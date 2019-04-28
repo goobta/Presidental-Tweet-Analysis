@@ -1,4 +1,6 @@
 import pandas as pd
+import string
+import re
 
 def clean_tweet_text(tweet):
     try:
@@ -11,20 +13,18 @@ def clean_tweet_text(tweet):
                 del words[index]
 
         return ' '.join(words)
-
     except:
         return None
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     print('Processing Trump Tweets')
 
-    trump = pd.read_csv('trump_tweets/TrumpTweets.csv')
-    trump['text'] = trump['text'].apply(clean_tweet_text)
+    trump_raw = pd.read_csv('trump_tweets/TrumpTweets.csv')
+    trump_raw['text'] = trump_raw['text'].apply(clean_tweet_text)
     
-    trump = trump[trump['text'] != '']
+    trump = trump_raw[trump_raw['text'] != '']
     trump = trump[trump['text'].notnull()]
     trump = trump[(trump['is_retweet'] == 'false') | (trump['is_retweet'] == 'true')]
-    trump = trump.sample(frac = 1)
 
     
     print('Processing Control Tweets')
