@@ -4,10 +4,10 @@ import numpy as np
 
 if __name__ == '__main__':
     print("Loading Data")
-    data = pd.read_csv('trump_with_rts_normalized.csv')
+    data = pd.read_csv('merged.csv')
 
     features = data['text']
-    labels = data['is_retweet']
+    labels = data['is_trump']
 
     x_train = features.loc[:int(.7 * features.shape[0])]
     y_train = labels.loc[:int(.7 * labels.shape[0])]

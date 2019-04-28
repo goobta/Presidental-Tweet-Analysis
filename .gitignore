@@ -5,3 +5,5 @@
 **/__pycache__
 
 *.csv
+
+!analysis/trump_tweets/TrumpTweets.csv
