@@ -19,14 +19,25 @@ def clean_tweet_text(tweet):
 if __name__ == '__main__':
     print('Processing Trump Tweets')
 
-    trump_raw = pd.read_csv('trump_tweets/TrumpTweets.csv')
-    trump_raw['text'] = trump_raw['text'].apply(clean_tweet_text)
+    trump = pd.read_csv('trump_tweets/TrumpTweets.csv')
+    trump['text'] = trump['text'].apply(clean_tweet_text)
     
-    trump = trump_raw[trump_raw['text'] != '']
+    trump = trump[trump['text'] != '']
     trump = trump[trump['text'].notnull()]
     trump = trump[(trump['is_retweet'] == 'false') | (trump['is_retweet'] == 'true')]
 
+    trump['is_trump'] = True
     
+
     print('Processing Control Tweets')
 
     control = pd.read_csv('control/control_tweets.csv')
+    control['text'] = control['text'].apply(clean_tweet_text)
+    control = control[control['username'] != 'realDonaldTrump']
+
+    control['is_trump'] = False
+
+    final = pd.concat([trump[['text', 'is_trump']], control[['text', 'is_trump']]])
+    final = final.sample(frac=1).reset_index(drop=True)
+
+    final.to_csv('merged.csv')
