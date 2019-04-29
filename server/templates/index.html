@@ -45,12 +45,12 @@
         </div>
 
         <div class="col-md-7">            
-          <textarea rows="4" cols="80"></textarea>
-          <input type="submit" value="Analyze" onclick="updateChart()">
+          <textarea rows="4" cols="80" id="text"></textarea>
+          <input type="submit" value="Analyze" onclick="getData()">
         </div>
         <div class="col-md-5">
             <h3>There's a 50% chance that it's a trump tweet - TODO choose trump image</h3>
-            <img id="trump" src ="/static/imagesConfusedTrump.png" width= "300" height = "300"></img>
+            <img id="trump" src ="/static/images/ConfusedTrump.png" width= "300" height = "300"></img>
         </div>
 
           <svg>
@@ -60,16 +60,38 @@
 </body>
 </html>
 <script>
-      updateBubbleChart()
-      function updateBubbleChart(){
+      
+      function getData(){
+    submitURL = "/predict"
+    var postReq = {};
+    postReq["sentence"] = document.getElementById("text").value;
+    console.log("JS of req:" + JSON.stringify(postReq));
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", submitURL, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    console.log(submitURL);
+    xhr.send(JSON.stringify(postReq));
+    console.log(xhr);
+    xhr.onloadend = function () {
+        console.log(xhr);
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            console.log(xhr.responseText);
+            if(xhr.responseText != "404, tree not found"){
+                currentData = JSON.parse(xhr.responseText.replace(/\'/g,"\""))
+                console.log(currentData)
+                searchForMoveForPie();
+                //TODO update everything that needs to be update.
+            }
+            else{
+                //TODO - shouldn't get here? something about unique game?
+            }
+        } else {
+            alert("Did not get response, server is down?")
+        }
+    }
+}
 
-        dataset = {"words":[{"word":"Obama","prob": ".8","notprob":".2"},
-                                        {"word":"Hillary","prob":".7","notprob":".1"},
-                                        {"word":"maga","prob":".6","notprob":".3"},
-                                        {"word":"lol","prob":".4","notprob":".1"}],
-                    "prob":69}
-                  }
-    
+
 
 </script>
 
