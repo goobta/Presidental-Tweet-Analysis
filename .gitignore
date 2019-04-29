@@ -7,3 +7,5 @@
 *.csv
 
 !analysis/trump_tweets/TrumpTweets.csv
+!analysis/merged.csv
+!analysis/relative_probs.csv

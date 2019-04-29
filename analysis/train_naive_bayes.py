@@ -23,3 +23,5 @@ if __name__ == '__main__':
 
     print("Training accuracy: {}".format(accuracy(y_train, nb.predict(x_train))))
     print("Testing accuracy:  {}".format(accuracy(y_test, nb.predict(x_test))))
+
+    print('Saving NB Classifier')
