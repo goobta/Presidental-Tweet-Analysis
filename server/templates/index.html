@@ -6,7 +6,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
 <div class= "container marketing">
@@ -16,8 +16,8 @@
 
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-            <p class="lead">Insert words here</p>
+            <h2 class="featurette-heading">Project Intro  <span class="text-muted">It'll blow your mind.</span></h2>
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           </div>
           <div class="col-md-5">
               <img src = "/static/TrumpTweeting.png" width = "436" height = "244">
@@ -26,29 +26,50 @@
 
         <hr class="featurette-divider">
 
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-          </div>
-          <div class="col-md-5 order-md-1">
-          </div>
-        </div>
-
-        <hr class="featurette-divider">
-
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <img src = "/static/images/ControlWordCount.svg" width = "700" height = "500">
           </div>
           <div class="col-md-5">
+            <h2 class="featurette-heading">Trump's most common words<span class="text-muted">See for yourself.</span></h2>
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           </div>
         </div>
+
+
+
+        <hr class="featurette-divider">
+        <div>
+          <h2>(Trump Tweet) | !(Trump Tweeet)</h2>
+          <p class="lead">Want to figure out whether or not Trump tweeted something out? Enter the text below to find out.</p>
+        </div>
+
+        <div class="col-md-7">            
+          <textarea rows="4" cols="80"></textarea>
+          <input type="submit" value="Analyze" onclick="updateChart()">
+        </div>
+        <div class="col-md-5">
+            <h3>There's a 50% chance that it's a trump tweet - TODO choose trump image</h3>
+            <img id="trump" src ="/static/imagesConfusedTrump.png" width= "300" height = "300"></img>
+        </div>
+
+          <svg>
+          </svg>
+
         </div>
 </body>
 </html>
+<script>
+      updateBubbleChart()
+      function updateBubbleChart(){
+
+        dataset = {"words":[{"word":"Obama","prob": ".8","notprob":".2"},
+                                        {"word":"Hillary","prob":".7","notprob":".1"},
+                                        {"word":"maga","prob":".6","notprob":".3"},
+                                        {"word":"lol","prob":".4","notprob":".1"}],
+                    "prob":69}
+                  }
+    
+
+</script>
 
