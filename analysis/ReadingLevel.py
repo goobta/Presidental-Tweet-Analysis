@@ -9,5 +9,5 @@ textmany = ["Yeah, I think it's a good environment for learning English.",
 "I checked to make sure that he was still alive."]
 
 for i in textmany:
-    level = textstat.flesch_kincaid_grade(i)
+    level = textstat.flesch_reading_ease(i)
     print(level)
