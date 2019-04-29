@@ -9,18 +9,17 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 </head>
 <body>
-<div class= "container marketing">
-<h1>Presedential Tweet Analysis</h1>
-<div class>
+    <div class="container marketing">
  <hr class="featurette-divider">
 
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">Project Intro  <span class="text-muted">It'll blow your mind.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <h2 class="featurette-heading">Introduction<span class="text-muted"> Analyzing Trump Tweets.</span></h2>
+            <p class="lead">By analyzing aspects of Donald Trump’s tweets you may be able to see trends in word use, phrase use, and other aspects to be able to predict whether or not a given tweet came from Donald Trump.
+</p>
           </div>
           <div class="col-md-5">
-              <img src = "/static/TrumpTweeting.png" width = "436" height = "244">
+              <img src = "/static/images/TrumpTweeting.png" width = "436" height = "244">
           </div>
         </div>
 
@@ -28,8 +27,8 @@
 
         <div class="row featurette">
           <div class="col-md-7">
-            <img src = "/static/images/ControlWordCount.svg" width = "700" height = "500">
-          </div>
+            <img src = "/static/images/TrumpUncommonWords.svg" width = "700" height = "500">
+            </div>
           <div class="col-md-5">
             <h2 class="featurette-heading">Trump's most common words<span class="text-muted">See for yourself.</span></h2>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
@@ -41,7 +40,7 @@
         <hr class="featurette-divider">
         <div>
           <h2>(Trump Tweet) | !(Trump Tweeet)</h2>
-          <p class="lead">Want to figure out whether or not Trump tweeted something out? Enter the text below to find out.</p>
+          <p class="lead">Want to figure out whether or not Trump tweeted something out? Enter the text below to predict if it came from our commander-in-chief.</p>
         </div>
 
         <div class="col-md-7">            
@@ -50,7 +49,7 @@
         </div>
         <div class="col-md-5">
             <h3 id ="confText">/h3>
-            <img id="confImg" src ="/static/images/ConfusedTrump.png" width= "300" height = "300"></img>
+            <img id="confImg" width= "400" height = "300"></img>
         </div>
 
           <svg>
@@ -120,7 +119,7 @@ getData()
 function getData(){
     submitURL = "/predict"
     var postReq = {};
-    postReq["sentence"] = "Hillary is a bitch"//document.getElementById("text").value;
+    postReq["sentence"] = document.getElementById("text").value;
     console.log("JS of req:" + JSON.stringify(postReq));
     var xhr = new XMLHttpRequest();
     xhr.open("POST", submitURL, true);
@@ -137,12 +136,18 @@ function getData(){
                 conf = currentData["trump_confidence"]
                 if(conf > .6){
                   document.getElementById("confText").innerHTML = "It's probably a Trump Tweet"
+                  document.getElementById("confImg").src = "/static/images/TrumpThumbsUp.png";
+
                 }
                 else if(conf < .4){
                   document.getElementById("confText").innerHTML = "It's probably not a Trump Tweet"
+                  document.getElementById("confImg").src = "/static/images/TrumpThumbsDown.png";
+
                 }
                 else{
                   document.getElementById("confText").innerHTML = "Not too sure"
+                  document.getElementById("confImg").src = "/static/images/ConfusedTrump.png";
+
                 }
 
 
