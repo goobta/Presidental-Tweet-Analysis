@@ -3,6 +3,7 @@ from analysis.nb_utils import load_saved_model
 from flask import Flask, request, send_from_directory, render_template
 from flask_bootstrap import Bootstrap
 import pandas as pd
+import textstat
 import os.path
 import random
 import string
@@ -16,6 +17,19 @@ Bootstrap(app)
 @app.route("/")
 def index():
     return render_template('index.html')
+
+
+@app.route('/reading_level', methods=['POST'])
+def reading_level():
+    if request.method != 'POST':
+        print('Not a post request')
+        return 'NOTAVALIDPATH:'
+
+    sentence = request.get_json()['sentence']
+    level = textstat.flesch_reading_ease(sentence)
+
+    return json.dumps({'level': level})
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -57,7 +71,8 @@ def predict():
 
         output = {
                 'trump_confidence': trump_confidence, 
-                'word_confidences': word_confidences}
+                'word_confidences': word_confidences,
+                'readability': prediction['Readability'][0]}
 
         return json.dumps(output)
     else:

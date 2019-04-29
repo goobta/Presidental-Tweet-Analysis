@@ -1,4 +1,5 @@
 from multiprocessing.dummy import Pool as ThreadPool
+import textstat
 import pandas as pd
 
 class NaiveBayes:
@@ -75,14 +76,14 @@ class NaiveBayes:
                     best_prob = prob
                     best_class = c
 
-            return [best_class, probs]
+            return [best_class, probs, textstat.flesch_reading_ease(sentence)]
 
         pool = ThreadPool(self.threads)
         predictions = pool.map(predict_singular, x.tolist())
         pool.close()
         pool.join()
 
-        return pd.DataFrame(predictions, columns=['Class', 'Confidence'])
+        return pd.DataFrame(predictions, columns=['Class', 'Confidence', 'Readability'])
 
 
     def _word_freq_for_sent(self, sent):
