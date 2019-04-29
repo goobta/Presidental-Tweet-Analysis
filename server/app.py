@@ -5,7 +5,7 @@ import random
 import string
 import os 
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_folder='static')
 app.config['TEMPLATES_AUTO_RELOAD'] = True #TODO remove when done
 Bootstrap(app)
 
