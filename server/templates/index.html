@@ -85,12 +85,11 @@ function loadChart(d){
   });
   chart.render();
 }
-getData()
 
 function getData(){
     submitURL = "/predict"
     var postReq = {};
-    postReq["sentence"] = "i dont know"//document.getElementById("text").value;
+    postReq["sentence"] = document.getElementById("text").value;
     console.log("JS of req:" + JSON.stringify(postReq));
     var xhr = new XMLHttpRequest();
     xhr.open("POST", submitURL, true);
