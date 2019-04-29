@@ -7,6 +7,14 @@
   background-size: cover;
   -o-background-size: cover;
 }
+.column {
+  float:left;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 </style>
 <head>
 	<title>Presidential Tweet Anaysis</title>
@@ -51,18 +59,36 @@
             <img src = "/static/images/TrumpUncommonWords.png" width = "675">
             </div>
           <div class="col-md-5">
-            <h2 class="featurette-heading">Trump's most common words<span class="text-muted"></span></h2>
+            <h2 class="featurette-heading">Trump's Most Common Words<span class="text-muted"></span></h2>
             <p class="lead">In accordance with Zipf’s law, the word occurrences in the corpus of Trump tweets and control tweets can be modeled and are shown to follow a power law. Tops words not shared by the control set and Trump set are shown to the left. </p>
           </div>
         </div>
 
         <div class="row featurette" style="background: white">
-            <div class="col-md-5">
-            <h2 class="featurette-heading">Something about word analysis<span class="text-muted"></span></h2>
-            <p class="lead">TODO ankur should put his text here </p>
+            <div class="col-md-7">
+            <h2 class="featurette-heading">Readability Analysis <span class="text-muted">Flesch–Kincaid</span></h2>
+            <p class="lead">As part of our exploratory analysis, we were intested to see how "readable"
+President Trump's tweets were to the average Joe. To accomplish this, we used
+the Flesch Ease Score, which is a metric that the military uses to gauge how
+difficult a topic is to understand. A lower score means that it is harder to
+understand and larger score means that it is easier to understand. For refernce,
+a score of 50-60 corresponds to a high school reading level.</p>
+<p class="lead">
+Interestingly enough, President Trump's tweets were, on average, nearly the same
+as the population mean. However, if you notice the distributions, you can see
+that Trump's tweets are skewed so that they are more readable. This is good, as
+it means that Trump designs his tweets to be understandable by the average Joe.
+However, this also leads to some questions. Namely, there is a lot of silly
+tweets which are basically incoherent. Therefore, the readabilty of the
+population will go down because of this "junk". Hence, it seems to be a bit concerning
+that President's Trump's tweets are around the population mean, especially when
+one considers exactly how many "junk" tweets are floating around in Twitter.</p>
           </div>
-          <div class="col-md-7">
-            <img src = "/static/images/TrumpUncommonWords.png" width = "700">
+          <div class="col-md-5">
+            <p></p>
+              <img src = "/static/images/TrumpReadibilty.png" width = "500">
+              <p></p>
+              <img src = "/static/images/ControlReadability.png" width = "500">
             </div>
         </div>
 
