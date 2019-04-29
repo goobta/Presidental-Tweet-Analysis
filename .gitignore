@@ -9,8 +9,11 @@
 *.json
 
 !analysis/trump_tweets/TrumpTweets.csv
+!analysis/trump_tweets/TrumpPhrases.csv
+!analysis/trump_tweets/TrumpFrequentWordsNotControl.csv
 !analysis/merged.csv
 !analysis/relative_probs.csv
 
 !analysis/trump_counts.csv
 !analysis/control_counts.csv
+.DS_Store

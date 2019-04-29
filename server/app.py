@@ -71,7 +71,8 @@ def predict():
 
         output = {
                 'trump_confidence': trump_confidence, 
-                'word_confidences': word_confidences}
+                'word_confidences': word_confidences,
+                'readability': prediction['Readability'][0]}
 
         return json.dumps(output)
     else:
