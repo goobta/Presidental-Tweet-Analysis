@@ -2,13 +2,13 @@ from multiprocessing.dummy import Pool as ThreadPool
 import pandas as pd
 
 class NaiveBayes:
-    def __init__(self, THREADS = 8):
+    def __init__(self, p_c_=None, B_=None, t_c=None, freqs_=None, THREADS=8):
         self.threads = THREADS
 
-        self.p_c = None
-        self.B = None
-        self.total_counts = None
-        self.freqs = None
+        self.p_c = p_c_
+        self.B = B_
+        self.total_counts = t_c
+        self.freqs = freqs_
 
     def fit(self, x, y):
         counts = x.apply(lambda x: len(x.split(' ')))
@@ -75,14 +75,14 @@ class NaiveBayes:
                     best_prob = prob
                     best_class = c
 
-            return best_class
+            return [best_class, probs]
 
         pool = ThreadPool(self.threads)
         predictions = pool.map(predict_singular, x.tolist())
         pool.close()
         pool.join()
 
-        return pd.Series(predictions)
+        return pd.DataFrame(predictions, columns=['Class', 'Confidence'])
 
 
     def _word_freq_for_sent(self, sent):
