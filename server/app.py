@@ -44,6 +44,8 @@ def predict():
         nb = load_saved_model('../analysis/')
         
         query = request.get_json()['sentence']
+        query = query.translate(str.maketrans('', '', string.punctuation))
+        query = query.replace('\n', ' ')
         print('Request to predict {}'.format(query))
 
         sentence = pd.Series([query])
