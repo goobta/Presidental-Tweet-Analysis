@@ -12,7 +12,12 @@ def clean_tweet_text(tweet):
             if 'https' in word:
                 del words[index]
 
-        return ' '.join(words)
+        final_str = ' '.join(words)
+
+        if len(final_str) > 275:
+            return None
+        else:
+            return final_str
     except:
         return None
 
@@ -34,6 +39,8 @@ if __name__ == '__main__':
     control = pd.read_csv('control/control_tweets.csv')
     control['text'] = control['text'].apply(clean_tweet_text)
     control = control[control['username'] != 'realDonaldTrump']
+    control = control[control['text'] != '']
+    control = control[control['text'].notnull()]
 
     control['is_trump'] = False
 
