@@ -75,14 +75,14 @@ class NaiveBayes:
                     best_prob = prob
                     best_class = c
 
-            return best_class
+            return [best_class, probs]
 
         pool = ThreadPool(self.threads)
         predictions = pool.map(predict_singular, x.tolist())
         pool.close()
         pool.join()
 
-        return pd.Series(predictions)
+        return pd.DataFrame(predictions, columns=['Class', 'Confidence'])
 
 
     def _word_freq_for_sent(self, sent):
