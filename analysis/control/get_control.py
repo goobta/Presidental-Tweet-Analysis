@@ -8,7 +8,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 THREADS = 16
-UNIT_TWEETS = 1000
+UNIT_TWEETS = 1500
 CHUNK_LENGTH = 30
 
 def download_tweets(bounds):
@@ -17,7 +17,7 @@ def download_tweets(bounds):
 
     print("Start from " + from_date + ' to ' + to_date)
 
-    criteria = got.manager.TweetCriteria().setQuerySearch('a OR the').setSince(from_date).setUntil(to_date).setTopTweets(True).setMaxTweets(1000)
+    criteria = got.manager.TweetCriteria().setQuerySearch('a OR the OR government OR democrat OR republican OR economy OR dog OR cat OR USA').setSince(from_date).setUntil(to_date).setTopTweets(True).setMaxTweets(1000)
     
     tweets = got.manager.TweetManager.getTweets(criteria)
     df = pd.DataFrame([t.__dict__ for t in tweets])
