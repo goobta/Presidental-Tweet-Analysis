@@ -127,17 +127,17 @@ function getData(){
                 conf = currentData["trump_confidence"]
                 if(conf > .6){
                   document.getElementById("confText").innerHTML = "It's probably a Trump Tweet"
-                  //document.getElementById("confImg").src = "/static/images/TrumpThumbsUp.png";
+                document.getElementById("confImg").src = "/static/images/TrumpThumbsUp.png";
 
                 }
                 else if(conf < .4){
                   document.getElementById("confText").innerHTML = "It's probably not a Trump Tweet"
-                  //document.getElementById("confImg").src = "/static/images/TrumpThumbsDown.png";
+                  document.getElementById("confImg").src = "/static/images/TrumpThumbsDown.png";
 
                 }
                 else{
                   document.getElementById("confText").innerHTML = "Not too sure"
-                  //document.getElementById("confImg").src = "/static/images/ConfusedTrump.png";
+                  document.getElementById("confImg").src = "/static/images/ConfusedTrump.png";
 
                 }
 
