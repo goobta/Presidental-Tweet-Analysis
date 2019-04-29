@@ -23,8 +23,21 @@
         <div class="row featurette" style="background: white">
           <div class="col-md-7">
             <h2 class="featurette-heading">Introduction<span class="text-muted"> Analyzing Trump Tweets.</span></h2>
-            <p class="lead">By analyzing aspects of Donald Trump’s tweets you may be able to see trends in word use, phrase use, and other aspects to be able to predict whether or not a given tweet came from Donald Trump.
-            </p>
+
+            <p class="lead">By analyzing aspects of Donald Trump’s tweets you
+						may be able to see trends in word use, phrase use, and other aspects
+						to be able to predict whether or not a given tweet came from Donald
+						Trump. In this project, we used a Navie Bayes classifier to
+						determine if a tweet was Trump's or not.</p>
+
+						<p class="lead">We used <a href='http://www.trumptwitterarchive.com/'>TrumpTwitterArchive</a> 
+						to download the data of Trump's tweets. We then sampled every month
+						that Trump tweeted (about ~1500 tweets per month) to get "control"
+						data. Note that we purposefully tried to sample over a period of
+						time to account for global events that everyone would be tweeting
+						about.</p>
+
+
           </div>
           <div class="col-md-5">
               <img src = "/static/images/TrumpTweeting.jpg" width = "436" height = "244">
@@ -35,7 +48,7 @@
 
         <div class="row featurette" style="background: white">
           <div class="col-md-7">
-            <img src = "/static/images/TrumpUncommonWords.svg" width = "700" height = "500">
+            <img src = "/static/images/TrumpUncommonWords.png" width = "675">
             </div>
           <div class="col-md-5">
             <h2 class="featurette-heading">Trump's most common words<span class="text-muted"></span></h2>
@@ -43,6 +56,15 @@
           </div>
         </div>
 
+        <div class="row featurette" style="background: white">
+            <div class="col-md-5">
+            <h2 class="featurette-heading">Something about word analysis<span class="text-muted"></span></h2>
+            <p class="lead">TODO ankur should put his text here </p>
+          </div>
+          <div class="col-md-7">
+            <img src = "/static/images/TrumpUncommonWords.png" width = "700">
+            </div>
+        </div>
 
 
         <hr class="featurette-divider" style="background: white">
@@ -50,6 +72,9 @@
 
         <div style="background: white">
           <h2>{Trump Tweet} <span class="text-muted">|!{Trump Tweeet}</span></h2>
+            <p class="lead">After training the Naive Bayes classifer, we got a <b>training
+              accuracy of 0.932603923720675</b> and a <b>testing accuracy of
+              0.8675070028011205</b></p>
           <p class="lead">Want to figure out whether or not Trump tweeted something out? Enter the text below to predict if it came from our commander-in-chief.</p>
         </div>
 

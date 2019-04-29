@@ -51,21 +51,20 @@ def predict():
 
         trump_confidence = prediction['Confidence'][0][True] / (prediction['Confidence'][0][True] + prediction['Confidence'][0][False])
 
+        relative_probs = pd.read_csv('../analysis/relative_probs.csv')
+
         word_confidences = []
-        for word in query.split(' '):
-            if word in nb.freqs[True]:
-                trump = (nb.freqs[True][word] + 1) / (nb.total_counts[True] + nb.B)
-            else:
-                trump = 1 / (nb.total_counts[True] + nb.B)
+        for word in set(query.split(' ')):
+            row = relative_probs[relative_probs['Word'] == word]
 
-            if word in nb.freqs[False]:
-                control = (nb.freqs[False][word] + 1) / (nb.total_counts[False] + nb.B)
+            if row.shape[0] != 0:
+                influence = row['RelativeProb'].values[0]
             else:
-                control = 1 / (nb.total_counts[False] + nb.B)
-
+                influence = 0
+            
             word_confidences.append({
                 'label': word, 
-                'y': trump
+                'y': influence
                 })
 
         output = {
