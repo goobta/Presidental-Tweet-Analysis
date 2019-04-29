@@ -10,13 +10,13 @@
 </head>
 <body>
     <div class="container marketing">
- <hr class="featurette-divider">
+    <hr class="featurette-divider">
 
         <div class="row featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading">Introduction<span class="text-muted"> Analyzing Trump Tweets.</span></h2>
             <p class="lead">By analyzing aspects of Donald Trump’s tweets you may be able to see trends in word use, phrase use, and other aspects to be able to predict whether or not a given tweet came from Donald Trump.
-</p>
+      </p>
           </div>
           <div class="col-md-5">
               <img src = "/static/images/TrumpTweeting.png" width = "436" height = "244">
@@ -39,7 +39,7 @@
 
         <hr class="featurette-divider">
         <div>
-          <h2>(Trump Tweet) | !(Trump Tweeet)</h2>
+          <h2>{Trump Tweet} <span class="text-muted">|!{Trump Tweeet}</span></h2>
           <p class="lead">Want to figure out whether or not Trump tweeted something out? Enter the text below to predict if it came from our commander-in-chief.</p>
         </div>
 
@@ -51,75 +51,66 @@
             <h3 id ="confText">/h3>
             <img id="confImg" width= "400" height = "300"></img>
         </div>
+        <hr class="featurette-divider">
 
-          <svg>
-          </svg>
+      <div id="chartContainer"></div>
 
         </div>
 </body>
 </html>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
+function loadChart(d){
 
-function updateBarChart(data){
-// set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-// set the ranges
-var x = d3.scaleBand()
-          .range([0, width])
-          .padding(0.1);
-var y = d3.scaleLinear()
-          .range([height, 0]);
-          
-// append the svg object to the body of the page
-// append a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
-var svg = d3.select("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", 
-          "translate(" + margin.left + "," + margin.top + ")");
-
-// get the data
-
-  // format the data
-  data.forEach(function(d) {
-    d.sales = +d.sales;
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    
+    title:{
+      text:"Fortune 500 Companies by Country"
+    },
+    axisX:{
+      interval: 1
+    },
+    axisY2:{
+      interlacedColor: "rgba(1,77,101,.2)",
+      gridColor: "rgba(1,77,101,.1)",
+      title: "Number of Companies"
+    },
+    data: [{
+      type: "bar",
+      name: "companies",
+      axisYType: "secondary",
+      color: "#014D65",
+      dataPoints: [
+        { y: 3, label: "Sweden" },
+        { y: 7, label: "Taiwan" },
+        { y: 5, label: "Russia" },
+        { y: 9, label: "Spain" },
+        { y: 7, label: "Brazil" },
+        { y: 7, label: "India" },
+        { y: 9, label: "Italy" },
+        { y: 8, label: "Australia" },
+        { y: 11, label: "Canada" },
+        { y: 15, label: "South Korea" },
+        { y: 12, label: "Netherlands" },
+        { y: 15, label: "Switzerland" },
+        { y: 25, label: "Britain" },
+        { y: 28, label: "Germany" },
+        { y: 29, label: "France" },
+        { y: 52, label: "Japan" },
+        { y: 103, label: "China" },
+        { y: 134, label: "US" }
+      ]
+    }]
   });
-
-  // Scale the range of the data in the domains
-  x.domain(data.map(function(d) { return d.salesperson; }));
-  y.domain([0, d3.max(data, function(d) { return d.sales; })]);
-
-  // append the rectangles for the bar chart
-  svg.selectAll(".bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.salesperson); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d) { return y(d.sales); })
-      .attr("height", function(d) { return height - y(d.sales); });
-
-  // add the x Axis
-  svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-  // add the y Axis
-  svg.append("g")
-      .call(d3.axisLeft(y));
-
+  chart.render();
 }
 getData()
 
 function getData(){
     submitURL = "/predict"
     var postReq = {};
-    postReq["sentence"] = document.getElementById("text").value;
+    postReq["sentence"] = "i dont know"//document.getElementById("text").value;
     console.log("JS of req:" + JSON.stringify(postReq));
     var xhr = new XMLHttpRequest();
     xhr.open("POST", submitURL, true);
@@ -136,24 +127,24 @@ function getData(){
                 conf = currentData["trump_confidence"]
                 if(conf > .6){
                   document.getElementById("confText").innerHTML = "It's probably a Trump Tweet"
-                  document.getElementById("confImg").src = "/static/images/TrumpThumbsUp.png";
+                  //document.getElementById("confImg").src = "/static/images/TrumpThumbsUp.png";
 
                 }
                 else if(conf < .4){
                   document.getElementById("confText").innerHTML = "It's probably not a Trump Tweet"
-                  document.getElementById("confImg").src = "/static/images/TrumpThumbsDown.png";
+                  //document.getElementById("confImg").src = "/static/images/TrumpThumbsDown.png";
 
                 }
                 else{
                   document.getElementById("confText").innerHTML = "Not too sure"
-                  document.getElementById("confImg").src = "/static/images/ConfusedTrump.png";
+                  //document.getElementById("confImg").src = "/static/images/ConfusedTrump.png";
 
                 }
 
 
 
 
-                updateBarChart(currentData["word_confidences"])
+                loadChart(currentData["word_confidences"])
        } else {
             alert("Did not get response, server is down?")
         }
