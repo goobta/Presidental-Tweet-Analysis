@@ -64,9 +64,8 @@ def predict():
                 control = 1 / (nb.total_counts[False] + nb.B)
 
             word_confidences.append({
-                'word': word, 
-                'trump_conf': trump, 
-                'control_conf': control
+                'label': word, 
+                'y': trump
                 })
 
         output = {
