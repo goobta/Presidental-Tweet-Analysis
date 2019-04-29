@@ -1,3 +1,4 @@
+from analysis.NaiveBayes import NaiveBayes
 from flask import Flask, request, send_from_directory, render_template
 from flask_bootstrap import Bootstrap
 import os.path
@@ -13,6 +14,10 @@ Bootstrap(app)
 def index():
     return render_template('index.html')
 
+def predict():
+    pass
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
+
+
