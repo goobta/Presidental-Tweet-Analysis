@@ -35,10 +35,29 @@ def predict():
         sentence = pd.Series([query])
         prediction = nb.predict(sentence)
 
+        trump_confidence = prediction['Confidence'][0][True] / (prediction['Confidence'][0][True] + prediction['Confidence'][0][False])
+
+        word_confidences = []
+        for word in query.split(' '):
+            if word in nb.freqs[True]:
+                trump = (nb.freqs[True][word] + 1) / (nb.total_counts[True] + nb.B)
+            else:
+                trump = 1 / (nb.total_counts[True] + nb.B)
+
+            if word in nb.freqs[False]:
+                control = (nb.freqs[False][word] + 1) / (nb.total_counts[False] + nb.B)
+            else:
+                control = 1 / (nb.total_counts[False] + nb.B)
+
+            word_confidences.append({
+                'word': word, 
+                'trump_conf': trump, 
+                'control_conf': control
+                })
+
         output = {
-                'class': str(prediction['Class'][0]),
-                'confidence': key_to_string(prediction['Confidence'][0])
-                }
+                'trump_confidence': trump_confidence, 
+                'word_confidences': word_confidences}
 
         return json.dumps(output)
     else:
