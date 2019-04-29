@@ -5,6 +5,8 @@
 **/__pycache__
 
 *.csv
+*.txt
+*.json
 
 !analysis/trump_tweets/TrumpTweets.csv
 !analysis/merged.csv
